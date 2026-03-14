@@ -1,13 +1,14 @@
-package main
+package service
 
 import (
 	"context"
 	"encoding/json"
+	"microservice-go/internal/model"
 	"net/http"
 )
 
 type Service interface {
-	GetCatFact(context.Context) (*CatFact, error)
+	GetCatFact(context.Context) (*model.CatFact, error)
 }
 
 type CatFactService struct {
@@ -18,14 +19,14 @@ func NewCatFactService(url string) Service {
 	return &CatFactService{url: url}
 }
 
-func (s *CatFactService) GetCatFact(ctx context.Context) (*CatFact, error) {
+func (s *CatFactService) GetCatFact(ctx context.Context) (*model.CatFact, error) {
 	resp, err := http.Get(s.url)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	fact := &CatFact{}
+	fact := &model.CatFact{}
 	if err := json.NewDecoder(resp.Body).Decode(fact); err != nil {
 		return nil, err
 	}

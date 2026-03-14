@@ -1,16 +1,17 @@
-package main
+package controller
 
 import (
 	"context"
 	"encoding/json"
+	"microservice-go/internal/service"
 	"net/http"
 )
 
 type ApiServer struct {
-	svc Service
+	svc service.Service
 }
 
-func NewApiServer(svc Service) *ApiServer {
+func NewApiServer(svc service.Service) *ApiServer {
 	return &ApiServer{svc: svc}
 }
 

@@ -1,8 +1,9 @@
-package main
+package service
 
 import (
 	"context"
 	"fmt"
+	"microservice-go/internal/model"
 	"time"
 )
 
@@ -14,7 +15,7 @@ func NewLoggingService(next Service) Service {
 	return &LoggingService{next: next}
 }
 
-func (s *LoggingService) GetCatFact(ctx context.Context) (fact *CatFact, err error) {
+func (s *LoggingService) GetCatFact(ctx context.Context) (fact *model.CatFact, err error) {
 	defer func(start time.Time) {
 		fmt.Printf("fact: %s, err=%v took: %v\n", fact, err, time.Since(start))
 	}(time.Now())
